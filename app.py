@@ -1012,7 +1012,7 @@ elif st.session_state['page'] == "Group Messaging Board":
 
 # user_data = pd.read_csv("Dataset/synthetic_user_data.csv")
 
-# GOOGLE_API_KEY ="AIzaSyCFdA1B8ZUaVUb1TjrVyzvycRCrcyKy2d4"
+
 # genai.configure(api_key=GOOGLE_API_KEY)
 # model_bio = genai.GenerativeModel('gemini-1.5-flash')
 
