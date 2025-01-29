@@ -9,7 +9,7 @@ import os
 import ast
 import html
 
-
+st.set_page_config(page_title="SafeCircles", page_icon="favicon.ico")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 model_bio = genai.GenerativeModel('gemini-1.5-flash')
