@@ -281,25 +281,55 @@ def group_messaging_board():
     st.divider()
 
     # ============ CREATE "BUBBLE" STYLING FUNCTION ===========
+    #def render_message_bubble(username, text):
+    #    """
+    #    Renders a single message bubble with different colors
+    ##    depending on the 'username'.
+    #    - "Ellie": purple background
+    #    - current user: green background
+    #    - others: blue background
+    #    """
+    #    if username.lower() == "ellie":
+    #        bg_color = "#9b59b6"  # purple
+    #        text_color = "white"
+    #    elif username == st.session_state['user_name']:
+    #        bg_color = "#2ecc71"  # green
+    #        text_color = "white"
+    #    else:
+    #        bg_color = "#3498db"  # blue
+    #        text_color = "white"
+    #    
+    #    # Inline HTML for bubble
+    #    bubble_html = f"""
+    #    <div style="
+    #        background-color: {bg_color};
+    #        color: {text_color};
+    #        padding: 10px 15px;
+    #        border-radius: 15px;
+    #        margin-bottom: 10px;
+    #        width: fit-content;
+    #        max-width: 60%;
+    #    ">
+    #        <b>{username}:</b><br/>
+    #        {text}
+    #</div>
+    #    """
+    #    st.markdown(bubble_html, unsafe_allow_html=True)
+
     def render_message_bubble(username, text):
-        """
-        Renders a single message bubble with different colors
-        depending on the 'username'.
-        - "Ellie": purple background
-        - current user: green background
-        - others: blue background
-        """
         if username.lower() == "ellie":
-            bg_color = "#9b59b6"  # purple
+            bg_color = "#9b59b6"
             text_color = "white"
         elif username == st.session_state['user_name']:
-            bg_color = "#2ecc71"  # green
+            bg_color = "#2ecc71"
             text_color = "white"
         else:
-            bg_color = "#3498db"  # blue
+            bg_color = "#3498db"
             text_color = "white"
-        
-        # Inline HTML for bubble
+    
+        # Escape text content to avoid rendering errors
+        text = text.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>")
+
         bubble_html = f"""
         <div style="
             background-color: {bg_color};
@@ -309,12 +339,15 @@ def group_messaging_board():
             margin-bottom: 10px;
             width: fit-content;
             max-width: 60%;
+            word-wrap: break-word;
         ">
             <b>{username}:</b><br/>
             {text}
-    </div>
+        </div>
         """
-        st.markdown(bubble_html, unsafe_allow_html=True)
+    
+        # Using components to ensure proper rendering
+        st.components.v1.html(bubble_html, height=50)
 
     # =============== INITIAL GREETINGS FROM 2 GROUP MEMBERS =============
     if len(st.session_state['messages']) == 0:
