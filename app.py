@@ -302,19 +302,19 @@ def group_messaging_board():
         
         # Inline HTML for bubble
         bubble_html = f"""
-    <div style="
-        background-color: {bg_color};
-        color: {text_color};
-        padding: 10px 15px;
-        border-radius: 15px;
-        margin-bottom: 10px;
-        width: fit-content;
-        max-width: 60%;
-    ">
-    </div>
-        {text}
-    </div>
-"""
+        <div style="
+            background-color: {bg_color};
+            color: {text_color};
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            width: fit-content;
+            max-width: 60%;
+        ">
+        </div>
+            {text}
+        </div>
+        """
         st.markdown(bubble_html, unsafe_allow_html=True)
 
     # =============== INITIAL GREETINGS FROM 2 GROUP MEMBERS =============
