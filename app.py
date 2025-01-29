@@ -7,6 +7,7 @@ import google.generativeai as genai
 import random
 import os
 import ast
+import html
 
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
