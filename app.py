@@ -311,7 +311,6 @@ def group_messaging_board():
             width: fit-content;
             max-width: 60%;
         ">
-        </div>
             {text}
         </div>
         """
