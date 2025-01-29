@@ -7,13 +7,11 @@ import google.generativeai as genai
 import random
 import os
 import ast
-import html
 
 st.set_page_config(page_title="SafeCircles", page_icon="favicon.ico")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 model_bio = genai.GenerativeModel('gemini-1.5-flash')
-
 
 # Example dataset
 example_data = pd.read_csv('Dataset/synthetic_user_data.csv')
@@ -283,6 +281,8 @@ def group_messaging_board():
 
     # ============ CREATE "BUBBLE" STYLING FUNCTION ===========
     def render_message_bubble(username, text):
+
+        
         """
         Renders a single message bubble with different colors
         depending on the 'username'.
@@ -299,25 +299,22 @@ def group_messaging_board():
         else:
             bg_color = "#3498db"  # blue
             text_color = "white"
-
-        # Escape any potential HTML characters in the text
-        escaped_text = html.escape(text)
         
         # Inline HTML for bubble
         bubble_html = f"""
-        <div style="
-            background-color: {bg_color};
-            color: {text_color};
-            padding: 10px 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            width: fit-content;
-            max-width: 60%;
-        ">
-            <b>{username}:</b><br/>
-            {escaped_text}
-        </div>
-        """
+    <div style="
+        background-color: {bg_color};
+        color: {text_color};
+        padding: 10px 15px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        width: fit-content;
+        max-width: 60%;
+    ">
+    </div>
+        {text}
+    </div>
+"""
         st.markdown(bubble_html, unsafe_allow_html=True)
 
     # =============== INITIAL GREETINGS FROM 2 GROUP MEMBERS =============
@@ -340,7 +337,7 @@ def group_messaging_board():
                 # Generate a short greeting
                 bio_user = example_data[example_data["USERNAME"]==g_user]["BIO"]
 
-                greeting_prompt = f"You are pretending to be {g_user} and writing a short greeting an online mental health group for the first time. this is their bio {bio_user}. Keep it sensitive and light but friendly."
+                greeting_prompt = f"You are pretending to be {g_user} and writing a short greeting an online mental health group for the first time. this is their bio {bio_user}. Keep it sensitive and light but friendly. Do not sign off with your name, just leavethe message like youre sending a text"
                 greet_text = model_bio.generate_content(greeting_prompt).text
                 st.session_state['messages'].append({
                     "user": g_user,
@@ -376,7 +373,7 @@ def group_messaging_board():
                 You are Ellie, the friendly and personable online mental health mediator mediator. Based on the conversation so far:
                 {conversation_so_far}
 
-                Please suggest a short conversation topic for the group to discuss.
+                Please suggest a short conversation topic for the group to discuss. Do not sign off with your name. keep it informal like youre sending a text.
                 """
                 topic_text = model_bio.generate_content(topic_prompt).text
                 st.session_state['messages'].append({
