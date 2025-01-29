@@ -298,6 +298,9 @@ def group_messaging_board():
         else:
             bg_color = "#3498db"  # blue
             text_color = "white"
+
+        # Escape any potential HTML characters in the text
+        escaped_text = html.escape(text)
         
         # Inline HTML for bubble
         bubble_html = f"""
@@ -311,7 +314,7 @@ def group_messaging_board():
             max-width: 60%;
         ">
             <b>{username}:</b><br/>
-            {text}
+            {escaped_text}
         </div>
         """
         st.markdown(bubble_html, unsafe_allow_html=True)
