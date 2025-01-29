@@ -9,7 +9,7 @@ import os
 import ast
 
 
-GOOGLE_API_KEY = YOUR_API_KEY
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 model_bio = genai.GenerativeModel('gemini-1.5-flash')
 
